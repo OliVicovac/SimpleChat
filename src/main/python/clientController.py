@@ -21,6 +21,7 @@ class ClientController(object):
         self.client = ChatClient(host, port, client_name=client_name)
         self.client.start()
 
+
         self.view.setupUi(self.dialog)
         self.dialog.setLayout(self.view.mainLayout)
 

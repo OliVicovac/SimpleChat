@@ -19,14 +19,15 @@ class ChatClient():
     Chat Client connecting to the multi-processed Chat Server
 
     """
-    def __init__(self, host, port, client_name=""):
+    def __init__(self, host='localhost', port=5050, client_name=""):
         """
-        Create a new Chat Client
 
+        Create a new Chat Client
         :param port: Server Port, if None is given, 'localhost' will be set.
         :param host: Server IP Address for connecting the socket, if None is given, 5050 will be set.
         :return: None
         """
+        
         pass
 
     def start(self):

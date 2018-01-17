@@ -21,7 +21,7 @@ def main():
     args = parser.parse_args()
 
     # TODO check consistency of arguments
-    username = "" if args.server is None else args.username
+    username = "" if args.username is None else args.username
     host = 'localhost' if args.host is None else args.host
     port = 5050 if args.port is None else args.port
 
