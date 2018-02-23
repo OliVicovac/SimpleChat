@@ -23,7 +23,9 @@ class ClientController(object):
 
 
         self.view.setupUi(self.dialog)
+
         self.dialog.setLayout(self.view.mainLayout)
+        self.view.sendButton.clicked.connect(self.send)
 
     def show(self):
         self.dialog.show()

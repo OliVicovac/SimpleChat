@@ -9,6 +9,8 @@ Created on 20.12.2017
 import socket
 import multiprocessing
 import ctypes
+import threading
+
 from socketChat.messageHandler import MessageHandler
 
 logger = multiprocessing.get_logger()
@@ -19,6 +21,7 @@ class ChatClient():
     Chat Client connecting to the multi-processed Chat Server
 
     """
+
     def __init__(self, host='localhost', port=5050, client_name=""):
         """
 
@@ -27,8 +30,12 @@ class ChatClient():
         :param host: Server IP Address for connecting the socket, if None is given, 5050 will be set.
         :return: None
         """
-        
-        pass
+        self.clientSocket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+
+        self.host = 5050 if host is None else host
+        self.port = 'localhost' if port is None else port
+        self.client_name = client_name
+
 
     def start(self):
         """
@@ -36,9 +43,10 @@ class ChatClient():
         :return: None
         """
         try:
-            self.listener.start()
-        except KeyboardInterrupt:
-            self.close()
+            self.clientSocket.connect((self.host,self.port))
+        except socket.error as err:
+            ctypes.windll.user32.MessageBoxW(0, "Error: "+ err.strerror, "Fehlerbox", 1)
+        ChatClient.close(self)
 
     def sendmsg(self, message):
         """
@@ -46,11 +54,15 @@ class ChatClient():
         :param message: Message as a string
         :return:
         """
-        pass
+        handler = MessageHandler()
+        self.clientSocket.send(message, self.clientSocket())
 
     def close(self):
         """
         Shutdown the Client and all active connections
         :return: None
         """
-        pass
+        self.clientSocket.close()
+
+
+

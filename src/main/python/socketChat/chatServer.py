@@ -20,7 +20,9 @@ class ChatServer:
 
     Every client has its own Handler, which manages sending and receiving messages
     """
+
     BACKLOG = 2
+    connections = []
 
     def __init__(self, address, port):
         """
@@ -30,14 +32,18 @@ class ChatServer:
         :param port: Port number. If None is given, 505 will be set.
         :return: None
         """
-        pass
+        self.address = 'localhost' if address is None else address
+        self.port = 5050 if port is None else port
+        self.serverSocket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+
 
     def start(self):
         """
         Start the Server after successful Initialisation
         :return: None
         """
-        pass
+        self.serverSocket.bind((str(self.address), int(self.port)))
+        self.serverSocket.listen(1)
 
     def send(self, message, sender=-1, recipients=None):
         """
@@ -47,7 +53,9 @@ class ChatServer:
         :param recipients: List of numbers to whom the message should be delivered
         :return: None
         """
-        pass
+        self.s.sendall(message)
+
+
 
     def remove(self, number=-1):
         """
